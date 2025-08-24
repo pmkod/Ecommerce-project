@@ -137,11 +137,22 @@ exports.Prisma.UserVerificationScalarFieldEnum = {
   lastName: 'lastName',
   purpose: 'purpose',
   agent: 'agent',
+  otp: 'otp',
   token: 'token',
   numberOfAttempts: 'numberOfAttempts',
   ip: 'ip',
   userId: 'userId',
   verifiedAt: 'verifiedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  ip: 'ip',
+  agent: 'agent',
+  userId: 'userId',
+  disabledAt: 'disabledAt',
   createdAt: 'createdAt'
 };
 
@@ -163,7 +174,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  UserVerification: 'UserVerification'
+  UserVerification: 'UserVerification',
+  RefreshToken: 'RefreshToken'
 };
 
 /**

@@ -35,6 +35,7 @@ model UserVerification {
   lastName         String?   @map("last_name")
   purpose          String?
   agent            String?
+  otp              String
   token            String
   numberOfAttempts Int       @default(0) @map("number_of_attempts") @db.SmallInt
   ip               String?

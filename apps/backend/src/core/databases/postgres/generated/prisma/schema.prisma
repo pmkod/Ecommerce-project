@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/core/generated/prisma"
+  output   = "../src/core/databases/postgres/generated/prisma"
 }
 
 datasource db {
@@ -22,6 +22,7 @@ model User {
   lastName          String             @map("last_name")
   createdAt         DateTime           @default(now()) @map("created_at")
   userVerifications UserVerification[]
+  RefreshToken      RefreshToken[]
 
   @@map("user")
 }
@@ -34,6 +35,7 @@ model UserVerification {
   lastName         String?   @map("last_name")
   purpose          String?
   agent            String?
+  otp              String
   token            String
   numberOfAttempts Int       @default(0) @map("number_of_attempts") @db.SmallInt
   ip               String?
@@ -43,4 +45,17 @@ model UserVerification {
   createdAt        DateTime  @default(now()) @map("created_at")
 
   @@map("user_verification")
+}
+
+model RefreshToken {
+  id         String    @id @default(uuid())
+  token      String
+  ip         String?
+  agent      String?
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     String?   @map("user_id")
+  disabledAt DateTime? @map("disabled_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  @@map("refresh_token")
 }
