@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { nanoid } from "nanoid";
 import {
@@ -6,22 +5,33 @@ import {
   ACCESS_TOKEN_SECRET_KEY,
   REFRESH_TOKEN_DURATION_IN_MS,
   REFRESH_TOKEN_SECRET_KEY,
-} from "../../core/configs/token.config";
+} from "../../../core/configs/token.config";
 
-const hashPassword = async (plainPassword: string) => {
-  return await bcrypt.hash(plainPassword, 10);
-};
-
-const comparePlainPasswordToHAsh = async (
-  plainPassword: string,
-  hashPassword: string
-) => {
-  return await bcrypt.compare(plainPassword, hashPassword);
-};
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 const generateUserVerificationToken = () => {
   return nanoid(400);
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 type GenerateAccessToken = {
   userId: string;
@@ -36,6 +46,21 @@ const generateAccessToken = ({
   });
 };
 
+const verifyAccessToken = (token: string) => {
+  return jwt.verify(token, ACCESS_TOKEN_SECRET_KEY);
+};
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 type GenerateRefreshToken = {
   userId: string;
   refreshTokenId: string;
@@ -48,6 +73,20 @@ const generateRefreshToken = ({
     expiresIn: `${REFRESH_TOKEN_DURATION_IN_MS}ms`,
   });
 };
+
+const verifyRefreshToken = (token: string) => {
+  return jwt.verify(token, REFRESH_TOKEN_SECRET_KEY);
+};
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 type GenerateAccessAndRefreshToken = {
   userId: string;
@@ -63,10 +102,10 @@ const generateAccessAndRefreshToken = ({
 };
 
 export {
-  hashPassword,
-  comparePlainPasswordToHAsh,
   generateUserVerificationToken,
   generateAccessToken,
+  verifyAccessToken,
   generateRefreshToken,
+  verifyRefreshToken,
   generateAccessAndRefreshToken,
 };

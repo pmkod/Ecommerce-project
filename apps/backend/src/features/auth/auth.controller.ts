@@ -4,7 +4,8 @@ import {
   signupValidationSchema,
 } from "@repo/validation";
 import { prisma } from "../../core/databases/postgres/prisma.client";
-import { generateUserVerificationToken, hashPassword } from "./auth.functions";
+import { hashPassword } from "./functions/password.function";
+import { generateUserVerificationToken } from "./functions/token.function";
 
 const signup = async (req: Request, res: Response) => {
   const signupData = await signupValidationSchema.parseAsync(req.body);
