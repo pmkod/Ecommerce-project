@@ -6,6 +6,7 @@ import {
 import { prisma } from "../../core/databases/postgres/prisma.client";
 import { hashPassword } from "./functions/password.function";
 import { generateUserVerificationToken } from "./functions/token.function";
+import { generateOtp } from "./functions/otp.function";
 
 const signup = async (req: Request, res: Response) => {
   const signupData = await signupValidationSchema.parseAsync(req.body);
@@ -22,6 +23,8 @@ const signup = async (req: Request, res: Response) => {
 
   const userVerificationToken = generateUserVerificationToken();
 
+  const otp = await generateOtp();
+
   const userVerification = await prisma.userVerification.create({
     data: {
       firstName: signupData.firstName,
@@ -32,6 +35,7 @@ const signup = async (req: Request, res: Response) => {
       agent: "",
       purpose: "",
       ip: "",
+      otp,
     },
     select: {
       id: true,
